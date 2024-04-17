@@ -31,7 +31,6 @@ class posizione
 
 class satellite: public posizione
 {
-    //
     private:
     int idc;
     int ids;
@@ -41,7 +40,7 @@ class satellite: public posizione
     //costruttore di defaul:
     satellite() : posizione(0, 0), ids(0) {};
     // Costruttore
-    satellite(int x, int y, int ids,int idc,int orbita=0,)
+    satellite(int x, int y, int ids,int idc,int orbita=0)
     :posizione(x, y){};
 
     //Funzioni
@@ -69,8 +68,8 @@ class costellazione
     public:
     //costruttore:
     costellazione(int x, int y);
-    //stampa idc;
-    int print_idc();
+    //ritorna idc, usare per passarla al costruttore;
+    int get_idc();
     //stampa posizioni 4 satelliti:
     void print_sat();
     //allineamento:

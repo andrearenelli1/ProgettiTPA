@@ -31,6 +31,7 @@ class posizione
 
 class satellite: public posizione
 {
+    //
     private:
     int idc;
     int ids;

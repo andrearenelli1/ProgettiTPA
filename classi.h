@@ -63,7 +63,7 @@ class costellazione
     void lancio(int x, int y);
     int pos_calc[8];
     
-
+    //porca troia
 
     public:
     //costruttore:

@@ -3,6 +3,8 @@
 #include "classi.h"
 using namespace std;
 
+//COMMENTO DI PROVA
+
 //funzione che date le coordinate del satellite principale calcola le altre e le scrive nell'array attributo pos_calc della classe costellazione
 //divide essenzialmente tra 2 casi (y>0, y<0)
 void costellazione::allineamento(int x, int y){

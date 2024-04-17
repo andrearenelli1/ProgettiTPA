@@ -23,7 +23,7 @@ class posizione
     void stampa_pos();
 
     //funzione per settare le coordinate:
-    posizione(int x, int y, int orbita = 0);
+    posizione(int x, int y);
 
     //conferma posizione:
     bool conferma(int x, int y);
@@ -32,22 +32,20 @@ class posizione
 class satellite: public posizione
 {
     private:
-    int idc;
     int ids;
+    int aligned;
 
     public:
     //costruttore di defaul:
-    satellite() : posizione(0, 0, 0), idc(0), ids(0) {};
+    satellite() : posizione(0, 0), ids(0) {};
     // Costruttore
-    satellite(int x, int y, int orbita)
-    :posizione(x, y,orbita){};
+    satellite(int x, int y, int orbita=0)
+    :posizione(x, y){};
 
     //Funzioni
-    //stampa identificativo costellazione
-    int stp_idc();
     //stampa identificativo satellite
     int stp_ids();
-    //satellite principale
+    //satellite principale, sarebbe meglio secondo me metterlo come attributo (che viene messo a 1 dal costruttore solo sul primo satellite)
     bool prnpl();
     //allinamento
     bool allmto();
@@ -56,23 +54,25 @@ class satellite: public posizione
 class costellazione
 {
     private:
-    int id;
+    static int ncos; //attributo statico della classe costellazione, di default a zero, viene incrementata dal costruttore, equivale quindi al numero totale di costellazioni create
+    static int t, orb30, orb35, orb36; //attributi statici che conteggiano il numero attuale di costellazioni a terra e nelle varie orbite
+    int idc;
     satellite sat[4];
     bool controllo(int x, int y);
     void lancio(int x, int y);
+    int pos_calc[8];
+    
 
 
     public:
     //costruttore:
     costellazione(int x, int y);
-    //stampa id;
-    int stp_id();
+    //stampa idc;
+    int print_idc();
     //stampa posizioni 4 satelliti:
-    void pos_sat();
-    //orbita:
-    int orbita();
+    void print_sat();
     //allineamento:
-    bool allineamento(int orbita);
+    void allineamento(int x, int y);
     //distruttore:
     ~costellazione(){};
     

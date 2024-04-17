@@ -37,10 +37,13 @@ bool costellazione::controllo(int x,int y){
 }
 
 void costellazione::lancio(int x, int y){
-    
+    if(orb30 == 0){
+        
+        orb30 = 1;
+    }
 }
 
-costellazione::costellazione(int x, int y, int orbita){
+costellazione::costellazione(int x, int y){
     //la verifica di validità avviene subito, in modo tale da evitare qualsiasi calcolo in caso di non validità
     if (controllo(x,y)!=0)
     {
@@ -49,7 +52,7 @@ costellazione::costellazione(int x, int y, int orbita){
 
     allineamento(x, y);
     for(int i=0; i < 4; i++){
-        this->sat[i] = satellite(pos_calc[2*i], pos_calc[2*i+1], orbita);
+        this->sat[i] = satellite(pos_calc[2*i], pos_calc[2*i+1]);
     }
     
     this->idc = ncos;

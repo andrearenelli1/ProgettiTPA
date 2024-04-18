@@ -28,3 +28,9 @@ bool satellite::allineato()
 {
     return aligned;
 }
+
+satellite::satellite(int x, int y, int ids, int idc, int orbita = 0):posizione(x, y)
+{
+    this->ids = ids;
+    this->idc = idc;
+}

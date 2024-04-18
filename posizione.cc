@@ -61,11 +61,3 @@ posizione::posizione(int x, int y, int orbita)
     set_y(y);
     set_orbita(orbita);
 }
-
-bool posizione::conferma(int x, int y)
-{
-    if(set_x(x) && set_y(y))
-    return true;
-    else
-    return false;
-}

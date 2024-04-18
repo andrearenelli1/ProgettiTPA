@@ -4,9 +4,9 @@
 class posizione
 {
     private:
-    bool set_x(int x);
-    bool set_y(int y);
-    void set_orbita(int orbita);
+    bool set_x(int x); //set variabile x
+    bool set_y(int y); //set variabile y
+    void set_orbita(int orbita); //set variabile orbita
 
     protected:
     int x;
@@ -14,42 +14,38 @@ class posizione
     int orbita;
 
     public:
-    //i 3 ritorni delle coordinate:
-    int get_x();
-    int get_y();
-    int get_orbita();
+    int get_x(); // ritorna x
+    int get_y(); // ritorna y
+    int get_orbita(); // ritorna orbita
 
-    //funzione per stampare le coordinate:
-    void stampa_pos();
+    void print_pos(); // stampa coordinate elegante
 
-    //funzione per settare le coordinate:
-    posizione(int x, int y);
+    posizione(int x, int y, int orbita); // costruttore
 
-    //conferma posizione:
-    bool conferma(int x, int y);
+    bool conferma(int x, int y); // conferma coordinate siano valide
 };
 
 class satellite: public posizione
 {
     private:
-    int idc;
-    int ids;
-    int aligned;
+    int idc; // identificativo costellazione
+    int ids; // identificativo satellite
+    bool aligned; // variabile allineamento
+    bool principale; // variabile satellite principale = 1; per verifica -> get_principale
 
     public:
-    //costruttore di defaul:
-    satellite() : posizione(0, 0), ids(0) {};
-    // Costruttore
-    satellite(int x, int y, int ids,int idc,int orbita=0)
-    :posizione(x, y){};
+    satellite() : posizione(0, 0), ids(0) {}; // costruttore di default che serve in costellazione
 
-    //Funzioni
-    //stampa identificativo satellite
-    int stp_ids();
-    //satellite principale, sarebbe meglio secondo me metterlo come attributo (che viene messo a 1 dal costruttore solo sul primo satellite)
-    bool prnpl();
-    //allinamento
-    bool allmto();
+    satellite(int x, int y, int ids,int idc,int orbita=0)
+    :posizione(x, y){}; // costruttore per passarmi le variabili
+
+    int get_ids(); // ritorna identificativo satellite
+
+    int get_idc(); // ritorna identificativo satellite
+    
+    bool get_principale(); // ritorna se è il satellite principale
+
+    bool allineato(); // ritorna se è allineato
 };
 
 class costellazione

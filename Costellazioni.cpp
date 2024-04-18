@@ -3,11 +3,9 @@
 #include "classi.h"
 using namespace std;
 
-//COMMENTO DI PROVA
-
 //funzione che date le coordinate del satellite principale calcola le altre e le scrive nell'array attributo pos_calc della classe costellazione
 //divide essenzialmente tra 2 casi (y>0, y<0)
-void costellazione::allineamento(int x, int y){
+void costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo questa funzione
     if (y>0){
         this->pos_calc[0] = x;                  //x0
         this->pos_calc[1] = y;                  //y0
@@ -32,16 +30,25 @@ void costellazione::allineamento(int x, int y){
 
 //ritorna 0 se le coordinate inserite sono negli intervalli validi
 bool costellazione::controllo(int x,int y){
-    if(-90 < x < 90 && -180 < y < 180){
+    if(-90 <= x <= 90 && -180 <= y <= 180){
         return 0;
     }
-    return 1;
+    return 1;    
 }
 
-void costellazione::lancio(int x, int y){
-    if(orb30 == 0){
-        
-        orb30 = 1;
+bool costellazione::pos_available(satellite sat[4],int orb){
+
+    bool res=0;
+
+    for(int i = 0; i < 4; i++){
+        res += map[sat[i].get_x()][sat[i].get_y()][orb];
+    }
+    return res;
+};
+
+int costellazione::lancio(satellite *sat[4]){
+    if(pos_available(sat[4], 0)){
+
     }
 }
 
@@ -52,12 +59,13 @@ costellazione::costellazione(int x, int y){
         cerr << "----coordinate non valide, intervalli -90 < x < 90 e -180 < y < 180---- " << endl;
     } 
 
+    this->idc = ncos; //aggiornamento dell'id costellazione mediante valore attuale della variabile statica
+    
     allineamento(x, y);
     for(int i=0; i < 4; i++){
-        this->sat[i] = satellite(pos_calc[2*i], pos_calc[2*i+1]);
+        this->sat[i] = satellite(pos_calc[2*i], pos_calc[2*i+1], i, this->idc);
     }
     
-    this->idc = ncos;
-    ncos++;
+    ncos++; 
 }
 

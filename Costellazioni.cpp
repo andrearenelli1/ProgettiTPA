@@ -56,7 +56,7 @@ bool costellazione::pos_available(satellite sat[4],int orb){
     return !res;
 };
 
-bool costellazione::posizionamento(){
+void costellazione::posizionamento(){
     //controlla orbita 35k
     if(pos_available(sat, 1)){
         for(int i=0; i < 4; i++){
@@ -64,7 +64,7 @@ bool costellazione::posizionamento(){
             map[sat[i].get_x()][sat[i].get_y()][1] = 1;
         }
         cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 35k----";
-        return 1;
+        
     }
     //se fallisce sopra controlla orbita 36k, se vero setta orbita del satellite e flagga posizione come occupata
     else if(pos_available(sat, 2)){
@@ -73,7 +73,7 @@ bool costellazione::posizionamento(){
             map[sat[i].get_x()][sat[i].get_y()][2] = 1;
         }
         cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 36k----";
-        return 1;
+        
     }
     //se fallisce sopra controlla orbita 37k, se vero setta orbita del satellite e flagga posizione come occupata
     else if(pos_available(sat, 3)){
@@ -82,7 +82,7 @@ bool costellazione::posizionamento(){
             map[sat[i].get_x()][sat[i].get_y()][3] = 1;
         }
         cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k----";
-        return 1;
+        
     }
     //se fallisce sopra fa per tre volte X+1, ogni volta controlla disponibilità
     else {
@@ -97,6 +97,7 @@ bool costellazione::posizionamento(){
                     sat[i].set_orbita(3);
                     map[sat[i].get_x()][sat[i].get_y()][3] = 1;
                 }
+                
             }
             else{
                 for(int i = 0; i < 4; i++){
@@ -104,14 +105,15 @@ bool costellazione::posizionamento(){
                 }
                 cout << "----Posizionamento in orbita geo-stazionara fallito per la costellazione id: " << idc << "----" << endl;
                 cout << "----Posizionamento in orbita non stazionaria 40k----" << endl;
-
+                
             }
         }
+        
     }
 
 }
 
-bool costellazione::lancio(){
+void costellazione::lancio(){
     if(pos_available(sat, 0)){
 
         for(int i=0; i < 4; i++){
@@ -120,12 +122,10 @@ bool costellazione::lancio(){
             sat[i].numSatelliti++;
         }
         cout << "----Lancio in orbita di sicurezza effettuato con successo per la costellazione id: " << idc << "----";
-        nactive++;
-        return  1;
+        nactive++; 
     }
     else{
         cerr << "----Lancio fallito, posizione non disponibile in orbita di sicurezza----";
-        return 0;
     }
 }
 
@@ -136,6 +136,15 @@ void costellazione::erase(){
     }
     nactive--;
     cout << "----Costellazione id. " << idc << " correttamente posizionata in orbita non stazionaria e disattivata";
+}
+
+satellite* costellazione::get_sat(){
+    satellite* p = sat;
+    return p;
+}
+
+void costellazione::read_map(int x, int y, int orb){
+    cout << map[x][y][orb] << endl;
 }
 
 costellazione::costellazione(int x, int y){

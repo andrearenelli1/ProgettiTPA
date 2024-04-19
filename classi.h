@@ -35,7 +35,7 @@ class satellite: public posizione
     public:
     satellite() : posizione(0, 0,0), ids(0) {}; // costruttore di default che serve in costellazione
 
-    satellite(int x, int y, int ids, int idc); // costruttore per passarmi le variabili
+    satellite(int x, int y, int ids, int idc); // costruttore
 
     int get_ids(); // ritorna identificativo satellite
 
@@ -53,7 +53,8 @@ class satellite: public posizione
 class costellazione
 {
     private:
-    static int ncos;                    //attributo statico della classe costellazione, di default a zero, viene incrementata dal costruttore, equivale quindi al numero totale di costellazioni create
+    static int ncos;                    //attributo statico della classe costellazione, viene incrementata dal costruttore, equivale quindi al numero totale di costellazioni create, solo progressivo
+    static int nactive;                 //numero di costellazioni attive (lanciate in orbite geostazionarie)
     static bool map[181][361][4];       //matrice tridimensionale avente come base tutte le posizioni possibili sul piano considerando solo coordinate intere (181x361), moltiplicate per 4 orbite. La posizione è un bool, 1=occupata, 0=libera. Le orbite sono codificate così 0=30k, 1=35k, 2=36k, 3=37k.
     int idc;                            //identificatore costellazione (univoco)
     satellite sat[4];                   //array contenente i 4 satelliti della costellazione     
@@ -67,6 +68,7 @@ class costellazione
     void print_sat();                   //stampa posizioni 4 satelliti
     bool pos_available(satellite sat[4], int orb);    
     bool posizionamento();
+    void erase();
 
 };
 

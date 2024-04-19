@@ -5,7 +5,7 @@ using namespace std;
 
 //funzione che date le coordinate del satellite principale calcola le altre e le scrive nell'array attributo pos_calc della classe costellazione
 //divide essenzialmente tra 2 casi (y>0, y<0)
-void costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo questa funzione
+bool costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo questa funzione
     if (y>0){
         this->pos_calc[0] = x;                  //x0
         this->pos_calc[1] = y;                  //y0
@@ -15,6 +15,7 @@ void costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo qu
         this->pos_calc[5] = y;                  //y2
         this->pos_calc[6] = (90-x);             //x3
         this->pos_calc[7] = -(180-y);           //y3
+        return 1;
     }
     else{
         this->pos_calc[0] = x;
@@ -25,7 +26,12 @@ void costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo qu
         this->pos_calc[5] = (180-abs(y));
         this->pos_calc[6] = -(90-x);
         this->pos_calc[7] = y; 
+        return 1;
     }
+}
+
+int costellazione::get_idc(){
+
 }
 
 //ritorna 0 se le coordinate inserite sono negli intervalli validi
@@ -50,7 +56,7 @@ bool costellazione::lancio(satellite sat[4]){
     if(pos_available(sat, 0)){
 
         for(int i=0; i < 4; i++){
-            this->sat[i] = satellite(pos_calc[2*i], pos_calc[2*i+1], i, this->idc);
+            this->sat[i] = satellite(pos_calc[2*i], pos_calc[2*i+1], i, this->idc, sat[i].allineato(), 0);
             map[sat[i].get_x()][sat[i].get_y()][0] = 1;
         }
 
@@ -70,9 +76,9 @@ costellazione::costellazione(int x, int y){
 
     this->idc = ncos; //aggiornamento dell'id costellazione mediante valore attuale della variabile statica
     
-    allineamento(x, y);
+    bool all = allineamento(x, y);
     for(int i=0; i < 4; i++){
-        this->sat[i] = satellite(pos_calc[2*i], pos_calc[2*i+1], i, this->idc);
+        this->sat[i] = satellite(pos_calc[2*i], pos_calc[2*i+1], i, this->idc, all);
     }
     
     ncos++; 

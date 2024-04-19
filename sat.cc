@@ -25,7 +25,6 @@ bool satellite::get_principale()
     }
 }
 
-// AGGIORNARE UNA VARIABILE PRIVATA ALL DA COSTELLAZIONE DOPO ALLINEAMENTO
 bool satellite::allineato()
 {
     return aligned;

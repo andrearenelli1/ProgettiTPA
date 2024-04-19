@@ -47,6 +47,7 @@ class satellite: public posizione
 
     int numSat(); // ritorna il numero di satelliti
 
+
     friend class costellazione;
 };
 
@@ -59,18 +60,19 @@ class costellazione
     int idc;                            //identificatore costellazione (univoco)
     satellite sat[4];                   //array contenente i 4 satelliti della costellazione     
     void allineamento(int x, int y);    
-    int pos_calc[8];                    //contiene il risultato del calcolo coordinate
 
     public:
     costellazione(int x, int y);        //costruttore:
     void lancio();
     int get_idc();                      //ritorna idc
     void print_sat();                   //stampa posizioni 4 satelliti
-    bool pos_available(satellite sat[4], int orb);  
+    bool pos_available(int x, int y, int orb);  
     satellite* get_sat();
     void read_map(int x, int y, int orb);  
     void posizionamento();
     void erase();
+    void move_n_flag(int orb);
+    bool check(int orb);
 
 };
 

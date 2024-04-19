@@ -38,7 +38,7 @@ void costellazione::print_sat(){
 }
 
 //ritorna 1 se le coordinate di ogni satellite sono disponibili nell'orbita data e quindi non occupate da altri satelliti
-bool costellazione::pos_available(satellite sat[4],int orb){
+bool costellazione::pos_available(int x, int y, int orb){
     
     //serve questo doppio controllo perché quando nel posizionamento vado a incrementare X per 3 volte nessuno assicura che, nel caso X sia 90 non si vada a leggere al di fuori della mappa di posizioni
   /*  for(int i = 0; i < 4; i++){
@@ -48,76 +48,95 @@ bool costellazione::pos_available(satellite sat[4],int orb){
         };
     }*/
 
-    bool res=0;
+    return map[x][y][orb];
+};
 
+bool costellazione::check(int orb){
+    bool res = false;
     for(int i = 0; i < 4; i++){
-        res = res || (map[sat[i].get_x()][sat[i].get_y()][orb]);
+        res = res || pos_available(sat[i].get_x(), sat[i].get_y(), 0);
     }
     return !res;
-};
+}
 
 void costellazione::posizionamento(){
     //controlla orbita 35k
-    if(pos_available(sat, 1)){
-        for(int i=0; i < 4; i++){
-            sat[i].set_orbita(1);
-            map[sat[i].get_x()][sat[i].get_y()][1] = 1;
-        }
+    if(check(1)){
+        move_n_flag(1);
         cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 35k----";
-        
     }
     //se fallisce sopra controlla orbita 36k, se vero setta orbita del satellite e flagga posizione come occupata
-    else if(pos_available(sat, 2)){
-        for(int i=0; i < 4; i++){
-            sat[i].set_orbita(2);
-            map[sat[i].get_x()][sat[i].get_y()][2] = 1;
-        }
+    else 
+    if(check(2)){
+        move_n_flag(2);
         cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 36k----";
-        
     }
     //se fallisce sopra controlla orbita 37k, se vero setta orbita del satellite e flagga posizione come occupata
-    else if(pos_available(sat, 3)){
-        for(int i=0; i < 4; i++){
-            sat[i].set_orbita(3);
-            map[sat[i].get_x()][sat[i].get_y()][3] = 1;
-        }
+    else 
+    if(check(3)){
+        move_n_flag(3);
         cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k----";
-        
     }
     //se fallisce sopra fa per tre volte X+1, ogni volta controlla disponibilità
     else {
-        satellite find[4]; //array locale usato solo per usare la funzione di ricerca posizione senza cambiare le coordinate del satellite
-        for(int j = 1; j < 4; j++){
+        bool last_check = false;
+        for(int i = 0; i < 4; i++){
+            last_check = last_check || pos_available(sat[i].get_x()+1, sat[i].get_y(), 3);
+        }
+        if(!last_check){
             for(int i = 0; i < 4; i++){
-                find[i] = satellite(sat[i].get_x()+j, sat[i].get_y(), -1, -1); //in questo caso orbita e identificatore non servono e sono inizializzati a valori privi di senso
+                map[sat[i].get_x()][sat[i].get_y()][0] = 0;
+                sat[i].set_x(sat[i].get_x()+1);  
+                map[sat[i].get_x()][sat[i].get_y()][3] = 1;
             }
-            if(pos_available(find,3)){
+            cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k, con X incrementata di 1----";
+        }
+        else{
+            last_check = false;
+            for(int i = 0; i < 4; i++){
+                last_check = last_check || pos_available(sat[i].get_x()+2, sat[i].get_y(), 3);
+            }
+            if(!last_check){
                 for(int i = 0; i < 4; i++){
-                    sat[i].set_x(find[i].get_x());
-                    sat[i].set_orbita(3);
+                    map[sat[i].get_x()][sat[i].get_y()][0] = 0;
+                    sat[i].set_x(sat[i].get_x()+2);  
                     map[sat[i].get_x()][sat[i].get_y()][3] = 1;
                 }
-                
+                cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k, con X incrementata di 2----";
             }
             else{
+            last_check = false;
+            for(int i = 0; i < 4; i++){
+                last_check = last_check || pos_available(sat[i].get_x()+3, sat[i].get_y(), 3);
+            }
+            if(!last_check){
                 for(int i = 0; i < 4; i++){
-                    sat[i].set_orbita(4);
+                    map[sat[i].get_x()][sat[i].get_y()][0] = 0;
+                    sat[i].set_x(sat[i].get_x()+3);  
+                    map[sat[i].get_x()][sat[i].get_y()][3] = 1;
                 }
-                cout << "----Posizionamento in orbita geo-stazionara fallito per la costellazione id: " << idc << "----" << endl;
-                cout << "----Posizionamento in orbita non stazionaria 40k----" << endl;
-                
+                cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k, con X incrementata di 3----";
+            }
+            else{
+                erase();
+                cout << "----Costellazione id: " << idc << "posizionata in orbita 40k non stazionaria, tutti i tentativi di posizionamento sono falliti----";
             }
         }
+        }
         
+
     }
+    
+    
 
 }
 
 void costellazione::lancio(){
-    bool o = pos_available(this->sat, 0);
-    cout << o << endl;
-    if(pos_available(sat, 0)){
-
+    bool check = false;
+    for(int i = 0; i < 4; i++){
+        check = check || pos_available(sat[i].get_x(), sat[i].get_y(), 0);
+    }
+    if(!check){
         for(int i=0; i < 4; i++){
             sat[i].set_orbita(0);
             map[sat[i].get_x()][sat[i].get_y()][0] = 1;
@@ -128,11 +147,15 @@ void costellazione::lancio(){
     }
     else{
         cerr << "----Lancio fallito, posizione non disponibile in orbita di sicurezza----";
-    }
+    } 
+    cout << "ciao" << endl;
 }
 
 void costellazione::erase(){
     for(int i = 0; i < 4; i++){
+        if (-1 < sat[i].orbita < 4){
+        map[sat[i].get_x()][sat[i].get_y()][sat[i].get_orbita()] = 0;
+        }
         sat[i].set_orbita(4);
         sat[i].numSatelliti--;
     }
@@ -161,3 +184,10 @@ costellazione::costellazione(int x, int y){
     ncos++; //aggiornamento variabile statica
 }
 
+void costellazione::move_n_flag(int orb){
+    for(int i=0; i < 4; i++){
+            map[sat[i].get_x()][sat[i].get_y()][0] = 0;
+            sat[i].set_orbita(orb);
+            map[sat[i].get_x()][sat[i].get_y()][orb] = 1;
+        }
+}

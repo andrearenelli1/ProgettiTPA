@@ -3,6 +3,8 @@
 #include "classi.h"
 using namespace std;
 
+int costellazione::ncos = 0;
+bool costellazione::map[181][361][4] = {};
 //funzione che date le coordinate del satellite principale calcola le altre e le scrive nell'array attributo pos_calc della classe costellazione
 //divide essenzialmente tra 2 casi (y>0, y<0)
 bool costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo questa funzione
@@ -34,6 +36,8 @@ bool costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo qu
 int costellazione::get_idc(){
     return idc;
 }
+
+
 
 //ritorna 0 se le coordinate inserite sono negli intervalli validi
 bool costellazione::controllo(int x,int y){

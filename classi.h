@@ -3,11 +3,6 @@
 
 class posizione
 {
-    private:
-    bool set_x(int x); //set variabile x
-    bool set_y(int y); //set variabile y
-    void set_orbita(int orbita); //set variabile orbita
-
     protected:
     int x;
     int y;
@@ -17,6 +12,9 @@ class posizione
     int get_x(); // ritorna x
     int get_y(); // ritorna y
     int get_orbita(); // ritorna orbita
+    bool set_x(int x); //set variabile x
+    bool set_y(int y); //set variabile y
+    void set_orbita(int orbita); //set variabile orbita
 
     void print_pos(); // stampa coordinate elegante
 
@@ -48,6 +46,8 @@ class satellite: public posizione
     bool allineato(); // ritorna se è allineato
 
     int numSat(); // ritorna il numero di satelliti
+
+    friend class costellazione;
 };
 
 class costellazione
@@ -56,19 +56,17 @@ class costellazione
     static int ncos;                    //attributo statico della classe costellazione, di default a zero, viene incrementata dal costruttore, equivale quindi al numero totale di costellazioni create
     static bool map[181][361][4];       //matrice tridimensionale avente come base tutte le posizioni possibili sul piano considerando solo coordinate intere (181x361), moltiplicate per 4 orbite. La posizione è un bool, 1=occupata, 0=libera. Le orbite sono codificate così 0=30k, 1=35k, 2=36k, 3=37k.
     int idc;                            //identificatore costellazione (univoco)
-    satellite sat[4];                   //array contenente i 4 satelliti della costellazione
-    bool controllo(int x, int y);       
-    bool lancio(satellite sat[4]);
-    bool allineamento(int x, int y);    
+    satellite sat[4];                   //array contenente i 4 satelliti della costellazione     
+    bool lancio();
+    void allineamento(int x, int y);    
     int pos_calc[8];                    //contiene il risultato del calcolo coordinate
 
     public:
     costellazione(int x, int y);        //costruttore:
     int get_idc();                      //ritorna idc
     void print_sat();                   //stampa posizioni 4 satelliti
-    bool pos_available(satellite sat[4], int orb);
-    ~costellazione(){};                 //distruttore
-    
+    bool pos_available(satellite sat[4], int orb);    
+    bool posizionamento();
 
 };
 

@@ -26,20 +26,21 @@ int posizione::get_orbita()
 bool posizione::set_x(int x)
 {
     //controllo se x è valido:
-    if(-90 < x && x < 90)
+    if(-90 <= x && x <= 90)
     {
         this->x = x;
         return true;
     }else{
         this->x = 0;
         return false;
+        cerr << "----coordinata x non valida, intervallo valido -90 <= x <= 90----" << endl;
     }
 }
 
 bool posizione::set_y(int y)
 {
-    //controllo se x è valido:
-    if(-180 < y && y < 180)
+    //controllo se y è valido:
+    if(-180 <= y && y <= 180)
     {
         this->y = y;
         return true;
@@ -47,6 +48,7 @@ bool posizione::set_y(int y)
     {
         this->y = 0;
         return false;
+        cerr << "----coordinata y non valida, intervallo valido -180 <= x <= 180----" << endl;
     }
 }
 

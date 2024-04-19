@@ -6,88 +6,112 @@ using namespace std;
 int costellazione::ncos = 0;
 bool costellazione::map[181][361][4] = {};
 
-//funzione che date le coordinate del satellite principale calcola le altre e le scrive nell'array attributo pos_calc della classe costellazione
+//funzione che date le coordinate del satellite principale calcola le altre e imposta le coordinate di ogni satellite con set_x e set_y, che al loro interno hanno il controllo intervallo di validità
 //divide essenzialmente tra 2 casi (y>0, y<0)
-bool costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo questa funzione
+void costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo questa funzione
     if (y>0){
-        this->pos_calc[0] = x;                  //x0
-        this->pos_calc[1] = y;                  //y0
-        this->pos_calc[2] = -x,                 //x1
-        this->pos_calc[3] = -(180-abs(y));      //y1
-        this->pos_calc[4] = -(90-x);            //x2
-        this->pos_calc[5] = y;                  //y2
-        this->pos_calc[6] = (90-x);             //x3
-        this->pos_calc[7] = -(180-y);           //y3
-        return 0;
+        if(sat[0].set_x(x) && sat[0].set_y(y)) {sat[0].aligned = 1;}  //imposta e controlla le coordinate del satellite principale e in caso entrambe le coordinate siano valide imposta aligned a 1                 
+        if(sat[1].set_x(-x) && sat[1].set_y(-(180-abs(y)))) {sat[1].aligned = 1;}
+        if(sat[2].set_x(-(90-x)) && sat[2].set_y(y)) {sat[2].aligned = 1;}
+        if(sat[3].set_x(90-x) && sat[3].set_y(-(180-y))) {sat[3].aligned = 1;}
     }
     else{
-        this->pos_calc[0] = x;
-        this->pos_calc[1] = y;
-        this->pos_calc[2] = -x, 
-        this->pos_calc[3] = (180-abs(y));
-        this->pos_calc[4] = (90-x);
-        this->pos_calc[5] = (180-abs(y));
-        this->pos_calc[6] = -(90-x);
-        this->pos_calc[7] = y; 
-        return 0;
+        if(sat[0].set_x(x) && sat[0].set_y(y)) {sat[0].aligned = 1;}  //imposta e controlla le coordinate del satellite principale e in caso entrambe le coordinate siano valide imposta aligned a 1                 
+        if(sat[1].set_x(-x) && sat[1].set_y(180-abs(y))) {sat[1].aligned = 1;}
+        if(sat[2].set_x(90-x) && sat[2].set_y(180-abs(y))) {sat[2].aligned = 1;}
+        if(sat[3].set_x(-(90-x)) && sat[3].set_y(y)) {sat[3].aligned = 1;}          
     }
-    return 1;
 }
 
 int costellazione::get_idc(){
     return idc;
 }
 
-
-
-//ritorna 0 se le coordinate inserite sono negli intervalli validi
-bool costellazione::controllo(int x,int y){
-    if(-90 <= x <= 90 && -180 <= y <= 180){
-        return 0;
+//stampa le posizioni dei 4 satelliti della costellazione
+void costellazione::print_sat(){
+    cout << "Posizioni satelliti costellazione id." << idc << endl;
+    cout << "sat nr." << "\n" << "x" << "\n" << "y" << "\n" << "orbita" << endl;
+    for(int i = 0; i < 4; i++){
+        cout << sat[i].ids << "\n" << sat[i].get_x() << "\n" << sat[i].get_y()  << "\n" << sat[i].get_orbita() << endl;
     }
-    return 1;    
 }
 
+//ritorna 1 se le coordinate di ogni satellite sono disponibili nell'orbita data e quindi non occupate da altri satelliti
 bool costellazione::pos_available(satellite sat[4],int orb){
 
     bool res=0;
 
     for(int i = 0; i < 4; i++){
-        res += map[sat[i].get_x()][sat[i].get_y()][orb];
+        res = res || map[sat[i].get_x()][sat[i].get_y()][orb];
     }
-    return res;
+    return !res;
 };
 
-bool costellazione::lancio(satellite sat[4]){
+bool costellazione::posizionamento(){
+    bool flag = 0;
+    //controlla orbita 35k
+    if(pos_available(sat, 1)){
+        for(int i=0; i < 4; i++){
+            sat[i].set_orbita(1);
+            map[sat[i].get_x()][sat[i].get_y()][1] = 1;
+        }
+        cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 35k----";
+        return 1;
+    }
+    //se fallisce sopra controlla orbita 36k, se vero setta orbita del satellite e flagga posizione come occupata
+    else if(pos_available(sat, 2)){
+        for(int i=0; i < 4; i++){
+            sat[i].set_orbita(2);
+            map[sat[i].get_x()][sat[i].get_y()][2] = 1;
+        }
+        cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 36k----";
+        return 1;
+    }
+    //se fallisce sopra controlla orbita 37k, se vero setta orbita del satellite e flagga posizione come occupata
+    else if(pos_available(sat, 3)){
+        for(int i=0; i < 4; i++){
+            sat[i].set_orbita(3);
+            map[sat[i].get_x()][sat[i].get_y()][3] = 1;
+        }
+        cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k----";
+        return 1;
+    }
+    //se fallisce sopra fa per tre volte X+1, ogni volta controlla disponibilità
+    else {
+        if(flag){
+        /////////////
+        }
+    }
+
+}
+
+bool costellazione::lancio(){
     if(pos_available(sat, 0)){
 
         for(int i=0; i < 4; i++){
-            this->sat[i] = satellite(pos_calc[2*i], pos_calc[2*i+1], i, this->idc, sat[i].allineato(), 0);
+            sat[i].set_orbita(0);
             map[sat[i].get_x()][sat[i].get_y()][0] = 1;
+            sat[i].numSatelliti++;
         }
-        return 1;
+        cout << "----Lancio in orbita di sicurezza effettuato con successo per la costellazione id: " << idc << "----";
+        return  1;
     }
     else{
         cerr << "----Lancio fallito, posizione non disponibile in orbita di sicurezza----";
-        return 1;
+        return 0;
     }
 
 }
 
 costellazione::costellazione(int x, int y){
-    //la verifica di validità avviene subito, in modo tale da evitare qualsiasi calcolo in caso di non validità
-    if (controllo(x,y)!=0)
-    {
-        cerr << "----coordinate non valide, intervalli -90 < x < 90 e -180 < y < 180---- " << endl;
-    } 
 
-    this->idc = ncos; //aggiornamento dell'id costellazione mediante valore attuale della variabile statica
+    idc = ncos; //aggiornamento dell'id costellazione mediante valore attuale della variabile statica
     
-    bool all = allineamento(x, y);
     for(int i=0; i < 4; i++){
-        this->sat[i] = satellite(pos_calc[2*i], pos_calc[2*i+1], i, this->idc, all);
+        this->sat[i] = satellite(0, 0, i, idc);
     }
-    
-    ncos++; 
+
+    allineamento(x, y);
+    ncos++; //aggiornamento variabile statica
 }
 

@@ -35,7 +35,6 @@ satellite::satellite(int x, int y, int ids, int idc):posizione(x, y)
 {
     this->ids = ids;
     this->idc = idc;
-    numSatelliti++;
 }
 
 int satellite::numSat()

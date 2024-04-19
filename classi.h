@@ -63,17 +63,14 @@ class costellazione
 
     public:
     costellazione(int x, int y);        //costruttore:
-    void lancio();
     int get_idc();                      //ritorna idc
     void print_sat();                   //stampa posizioni 4 satelliti
     bool pos_available(int x, int y, int orb);  
-    satellite* get_sat();
-    void read_map(int x, int y, int orb);  
+    bool check(int orb);
+    void lancio();
     void posizionamento();
     void erase();
     void move_n_flag(int orb);
-    bool check(int orb);
-
 };
 
 #endif

@@ -36,8 +36,7 @@ class satellite: public posizione
     public:
     satellite() : posizione(0, 0,0), ids(0) {}; // costruttore di default che serve in costellazione
 
-    satellite(int x, int y, int ids, int idc, bool aligned, int orbita = -1)
-    :posizione(x, y){}; // costruttore per passarmi le variabili
+    satellite(int x, int y, int ids, int idc, bool aligned, int orbita = -1); // costruttore per passarmi le variabili
 
     int get_ids(); // ritorna identificativo satellite
 

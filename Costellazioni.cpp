@@ -30,10 +30,10 @@ int costellazione::get_idc(){
 
 //stampa le posizioni dei 4 satelliti della costellazione
 void costellazione::print_sat(){
-    cout << "Posizioni satelliti costellazione id." << idc << endl;
-    cout << "sat nr." << "\n" << "x" << "\n" << "y" << "\n" << "orbita" << endl;
+    cout << "Posizioni satelliti costellazione id: " << idc << endl;
+    cout << "sat nr." << "\t" << "x" << "\t" << "y" << "\t" << "orbita" << endl;
     for(int i = 0; i < 4; i++){
-        cout << sat[i].ids << "\n" << sat[i].get_x() << "\n" << sat[i].get_y()  << "\n" << sat[i].get_orbita() << endl;
+        cout << sat[i].ids << "\t" << sat[i].get_x() << "\t" << sat[i].get_y()  << "\t" << sat[i].get_orbita() << endl;
     }
 }
 
@@ -41,17 +41,17 @@ void costellazione::print_sat(){
 bool costellazione::pos_available(satellite sat[4],int orb){
     
     //serve questo doppio controllo perché quando nel posizionamento vado a incrementare X per 3 volte nessuno assicura che, nel caso X sia 90 non si vada a leggere al di fuori della mappa di posizioni
-    for(int i = 0; i < 4; i++){
+  /*  for(int i = 0; i < 4; i++){
         bool doublecheck = (-90 <= sat[i].get_x() <= 90 && -180 <= sat[i].get_x() <= 180);
         if(!doublecheck){
             return 0;
         };
-    }
+    }*/
 
     bool res=0;
 
     for(int i = 0; i < 4; i++){
-        res = res || map[sat[i].get_x()][sat[i].get_y()][orb];
+        res = res || (map[sat[i].get_x()][sat[i].get_y()][orb]);
     }
     return !res;
 };
@@ -114,6 +114,8 @@ void costellazione::posizionamento(){
 }
 
 void costellazione::lancio(){
+    bool o = pos_available(this->sat, 0);
+    cout << o << endl;
     if(pos_available(sat, 0)){
 
         for(int i=0; i < 4; i++){
@@ -144,7 +146,7 @@ satellite* costellazione::get_sat(){
 }
 
 void costellazione::read_map(int x, int y, int orb){
-    cout << map[x][y][orb] << endl;
+    cout << "stato posizione x=" << x << " y=" << y << " orb=" << orb << "    ---> " << map[x][y][orb] << endl;
 }
 
 costellazione::costellazione(int x, int y){

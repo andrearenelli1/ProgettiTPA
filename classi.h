@@ -20,7 +20,7 @@ class posizione
 
     void print_pos(); // stampa coordinate elegante
 
-    posizione(int x, int y, int orbita=999); // costruttore
+    posizione(int x, int y, int orbita = -1); // costruttore
 
     //bool conferma(int x, int y); l'ho eliminato perche' il codice potrebbe dare problemi utilizza quello che utilizzavi prima
 };
@@ -36,7 +36,7 @@ class satellite: public posizione
     public:
     satellite() : posizione(0, 0,0), ids(0) {}; // costruttore di default che serve in costellazione
 
-    satellite(int x, int y, int ids, int idc, int orbita = 0)
+    satellite(int x, int y, int ids, int idc, bool aligned, int orbita = -1)
     :posizione(x, y){}; // costruttore per passarmi le variabili
 
     int get_ids(); // ritorna identificativo satellite
@@ -57,7 +57,7 @@ class costellazione
     satellite sat[4];                   //array contenente i 4 satelliti della costellazione
     bool controllo(int x, int y);       
     bool lancio(satellite sat[4]);
-    void allineamento(int x, int y);    
+    bool allineamento(int x, int y);    
     int pos_calc[8];                    //contiene il risultato del calcolo coordinate
 
     public:

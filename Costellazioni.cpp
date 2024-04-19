@@ -15,7 +15,7 @@ bool costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo qu
         this->pos_calc[5] = y;                  //y2
         this->pos_calc[6] = (90-x);             //x3
         this->pos_calc[7] = -(180-y);           //y3
-        return 1;
+        return 0;
     }
     else{
         this->pos_calc[0] = x;
@@ -26,12 +26,13 @@ bool costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo qu
         this->pos_calc[5] = (180-abs(y));
         this->pos_calc[6] = -(90-x);
         this->pos_calc[7] = y; 
-        return 1;
+        return 0;
     }
+    return 1;
 }
 
 int costellazione::get_idc(){
-
+    return this
 }
 
 //ritorna 0 se le coordinate inserite sono negli intervalli validi
@@ -59,10 +60,11 @@ bool costellazione::lancio(satellite sat[4]){
             this->sat[i] = satellite(pos_calc[2*i], pos_calc[2*i+1], i, this->idc, sat[i].allineato(), 0);
             map[sat[i].get_x()][sat[i].get_y()][0] = 1;
         }
-
+        return 1;
     }
     else{
         cerr << "----Lancio fallito, posizione non disponibile in orbita di sicurezza----";
+        return 1;
     }
 
 }

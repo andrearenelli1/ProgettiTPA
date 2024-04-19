@@ -29,7 +29,7 @@ bool satellite::allineato()
     return aligned;
 }
 
-satellite::satellite(int x, int y, int ids, int idc, bool aligned, int orbita = -1):posizione(x, y)
+satellite::satellite(int x, int y, int ids, int idc, bool aligned, int orbita):posizione(x, y)
 {
     this->ids = ids;
     this->idc = idc;

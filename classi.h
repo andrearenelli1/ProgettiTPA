@@ -58,12 +58,12 @@ class costellazione
     static bool map[181][361][4];       //matrice tridimensionale avente come base tutte le posizioni possibili sul piano considerando solo coordinate intere (181x361), moltiplicate per 4 orbite. La posizione è un bool, 1=occupata, 0=libera. Le orbite sono codificate così 0=30k, 1=35k, 2=36k, 3=37k.
     int idc;                            //identificatore costellazione (univoco)
     satellite sat[4];                   //array contenente i 4 satelliti della costellazione     
-    bool lancio();
     void allineamento(int x, int y);    
     int pos_calc[8];                    //contiene il risultato del calcolo coordinate
 
     public:
     costellazione(int x, int y);        //costruttore:
+    bool lancio();
     int get_idc();                      //ritorna idc
     void print_sat();                   //stampa posizioni 4 satelliti
     bool pos_available(satellite sat[4], int orb);    

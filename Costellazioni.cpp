@@ -9,7 +9,7 @@ bool costellazione::map[181][361][4] = {};
 
 //funzione che date le coordinate del satellite principale calcola le altre e imposta le coordinate di ogni satellite con set_x e set_y, che al loro interno hanno il controllo intervallo di validità
 //divide essenzialmente tra 2 casi (y>0, y<0)
-void costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo questa funzione
+void costellazione::allineamento(int x, int y){
     if (y>0){
         if(sat[0].set_x(x) && sat[0].set_y(y)) {sat[0].aligned = 1;}  //imposta e controlla le coordinate del satellite principale e in caso entrambe le coordinate siano valide imposta aligned a 1                 
         if(sat[1].set_x(-x) && sat[1].set_y(-(180-abs(y)))) {sat[1].aligned = 1;}
@@ -17,7 +17,7 @@ void costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo qu
         if(sat[3].set_x(90-x) && sat[3].set_y(-(180-y))) {sat[3].aligned = 1;}
     }
     else{
-        if(sat[0].set_x(x) && sat[0].set_y(y)) {sat[0].aligned = 1;}  //imposta e controlla le coordinate del satellite principale e in caso entrambe le coordinate siano valide imposta aligned a 1                 
+        if(sat[0].set_x(x) && sat[0].set_y(y)) {sat[0].aligned = 1;}  //stessa funzionalità ma nel caso y<=0                 
         if(sat[1].set_x(-x) && sat[1].set_y(180-abs(y))) {sat[1].aligned = 1;}
         if(sat[2].set_x(90-x) && sat[2].set_y(180-abs(y))) {sat[2].aligned = 1;}
         if(sat[3].set_x(-(90-x)) && sat[3].set_y(y)) {sat[3].aligned = 1;}          

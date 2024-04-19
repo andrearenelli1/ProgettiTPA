@@ -7,8 +7,9 @@ using namespace std;
 void test1()
 {
     costellazione cos0(30,60);
-    cout << "Identificativo costellazione: " << cos0.get_idc();
-    //cos0.print_sat();
+    cos0.lancio();
+    cos0.posizionamento();
+    cos0.print_sat();
 }
 
 void test2()

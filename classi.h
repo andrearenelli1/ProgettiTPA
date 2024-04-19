@@ -20,7 +20,7 @@ class posizione
 
     void print_pos(); // stampa coordinate elegante
 
-    posizione(int x, int y, int orbita=0); // costruttore
+    posizione(int x, int y, int orbita=999); // costruttore
 
     //bool conferma(int x, int y); l'ho eliminato perche' il codice potrebbe dare problemi utilizza quello che utilizzavi prima
 };
@@ -56,7 +56,7 @@ class costellazione
     int idc;                            //identificatore costellazione (univoco)
     satellite sat[4];                   //array contenente i 4 satelliti della costellazione
     bool controllo(int x, int y);       
-    void lancio(int x, int y);
+    bool lancio(satellite sat[4]);
     void allineamento(int x, int y);    
     int pos_calc[8];                    //contiene il risultato del calcolo coordinate
 
@@ -64,7 +64,7 @@ class costellazione
     costellazione(int x, int y);        //costruttore:
     int get_idc();                      //ritorna idc
     void print_sat();                   //stampa posizioni 4 satelliti
-    void pos_available(satellite sat[4]);
+    bool pos_available(satellite sat[4], int orb);
     ~costellazione(){};                 //distruttore
     
 

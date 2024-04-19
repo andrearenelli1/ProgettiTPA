@@ -46,10 +46,19 @@ bool costellazione::pos_available(satellite sat[4],int orb){
     return res;
 };
 
-int costellazione::lancio(satellite *sat[4]){
-    if(pos_available(sat[4], 0)){
+bool costellazione::lancio(satellite sat[4]){
+    if(pos_available(sat, 0)){
+
+        for(int i=0; i < 4; i++){
+            this->sat[i] = satellite(pos_calc[2*i], pos_calc[2*i+1], i, this->idc);
+            map[sat[i].get_x()][sat[i].get_y()][0] = 1;
+        }
 
     }
+    else{
+        cerr << "----Lancio fallito, posizione non disponibile in orbita di sicurezza----";
+    }
+
 }
 
 costellazione::costellazione(int x, int y){

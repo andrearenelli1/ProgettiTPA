@@ -1,10 +1,12 @@
 #include <iostream>
 #include "classi.h"
+#include "test.h"
 
 using namespace std;
 
 int main()
 {
-    // farei tutti i test in un altro file e poi farei solo la chiamata qui
+    test1();
+    
     return 0;
 }

@@ -32,6 +32,7 @@ class satellite: public posizione
     int ids; // identificativo satellite
     bool aligned; // variabile allineamento = 0 se allineato
     bool principale; // variabile satellite principale = 1; per verifica -> get_principale
+    int static numSatelliti; // numero satelliti
 
     public:
     satellite() : posizione(0, 0,0), ids(0) {}; // costruttore di default che serve in costellazione
@@ -45,6 +46,8 @@ class satellite: public posizione
     bool get_principale(); // ritorna se è il satellite principale
 
     bool allineato(); // ritorna se è allineato
+
+    int numSat(); // ritorna il numero di satelliti
 };
 
 class costellazione

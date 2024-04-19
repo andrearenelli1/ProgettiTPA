@@ -3,6 +3,8 @@
 
 using namespace std;
 
+int satellite::numSatelliti = 0;
+
 int satellite::get_idc()
 {
     return idc;
@@ -34,4 +36,10 @@ satellite::satellite(int x, int y, int ids, int idc, bool aligned, int orbita):p
     this->ids = ids;
     this->idc = idc;
     this->aligned = aligned;
+    numSatelliti++;
+}
+
+int satellite::numSat()
+{
+    return numSatelliti;
 }

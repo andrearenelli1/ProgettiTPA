@@ -32,7 +32,7 @@ bool costellazione::allineamento(int x, int y){ //modo di aggiornare all dopo qu
 }
 
 int costellazione::get_idc(){
-    return this
+    return idc;
 }
 
 //ritorna 0 se le coordinate inserite sono negli intervalli validi

@@ -30,7 +30,7 @@ class satellite: public posizione
     private:
     int idc; // identificativo costellazione
     int ids; // identificativo satellite
-    bool aligned; // variabile allineamento
+    bool aligned; // variabile allineamento = 0 se allineato
     bool principale; // variabile satellite principale = 1; per verifica -> get_principale
 
     public:

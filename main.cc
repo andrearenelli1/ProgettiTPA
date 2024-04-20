@@ -6,8 +6,7 @@ using namespace std;
 
 int main()
 {
-    costellazione cos0(30, 60);
-    cos0.lancio();
+    test1();
 
     return 0;
 }

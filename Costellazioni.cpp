@@ -36,27 +36,23 @@ void costellazione::print_sat(){
 bool costellazione::pos_available(int x, int y, int orb){
     
     //serve forse un doppio controllo perché quando nel posizionamento vado a incrementare X per 3 volte nessuno assicura che, nel caso X sia 90 non si vada a leggere al di fuori della mappa di posizioni
-
+    cout << map[x][y][orb];
     return map[x][y][orb];
 };
 
 bool costellazione::check(int orb){
     bool res = false;
     for(int i = 0; i < 4; i++){
-        res = res || pos_available(sat[i].get_x(), sat[i].get_y(), 0);
+        res = pos_available(sat[i].get_x(), sat[i].get_y(), 0);
     }
     return !res;
 }
 
 void costellazione::lancio(){
-    bool check = false;
-    for(int i = 0; i < 4; i++){
-        check = check || pos_available(sat[i].get_x(), sat[i].get_y(), 0);
-    }
-    if(!check){
+    if(check(0)){
         for(int i=0; i < 4; i++){
             sat[i].set_orbita(0);
-            map[sat[i].get_x()][sat[i].get_y()][0] = 1;
+            //map[sat[i].get_x()][sat[i].get_y()][0] = 1;
             sat[i].numSatelliti++;
         }
         cout << "----Lancio in orbita di sicurezza effettuato con successo per la costellazione id: " << idc << "----";

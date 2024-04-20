@@ -32,8 +32,8 @@ bool posizione::set_x(int x)
         return true;
     }else{
         this->x = 0;
-        return false;
         cerr << "----coordinata x non valida, intervallo valido -90 <= x <= 90----" << endl;
+        return false;
     }
 }
 
@@ -47,8 +47,8 @@ bool posizione::set_y(int y)
     }else
     {
         this->y = 0;
-        return false;
         cerr << "----coordinata y non valida, intervallo valido -180 <= x <= 180----" << endl;
+        return false;
     }
 }
 

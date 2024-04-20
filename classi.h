@@ -30,23 +30,25 @@ class satellite: public posizione
     int ids; // identificativo satellite
     bool aligned; // variabile allineamento = 0 se allineato
     bool principale; // variabile satellite principale = 1; per verifica -> get_principale
-    int static numSatelliti; // numero satelliti
+    static int numSatelliti; // numero satelliti
+    static int NSatAllineati; // numero satelliti
 
     public:
-    satellite() : posizione(0, 0,0), ids(0) {}; // costruttore di default che serve in costellazione
+    satellite() : posizione(0, 0, -1), ids(0) {}; // costruttore di default che serve in costellazione
 
     satellite(int x, int y, int ids, int idc); // costruttore
 
     int get_ids(); // ritorna identificativo satellite
 
-    int get_idc(); // ritorna identificativo satellite
+    int get_idc(); // ritorna identificativo costellazione
     
     bool get_principale(); // ritorna se è il satellite principale
 
     bool allineato(); // ritorna se è allineato
 
-    int numSat(); // ritorna il numero di satelliti
+    int numSat(); // ritorna il numero di satelliti lanciati
 
+    int numSatAllineati(); // ritorna il numero di satelliti allineati
 
     friend class costellazione;
 };
@@ -59,18 +61,23 @@ class costellazione
     static bool map[181][361][4];       //matrice tridimensionale avente come base tutte le posizioni possibili sul piano considerando solo coordinate intere (181x361), moltiplicate per 4 orbite. La posizione è un bool, 1=occupata, 0=libera. Le orbite sono codificate così 0=30k, 1=35k, 2=36k, 3=37k.
     int idc;                            //identificatore costellazione (univoco)
     satellite sat[4];                   //array contenente i 4 satelliti della costellazione     
-    void allineamento(int x, int y);    
+    void allineamento(int x, int y);    //allinea i 4 satelliti sugli stessi piani longitudinali e latitudinali
+    void move_n_flag(int orb);          //serve a spostare i satelliti aggiornando la mappa
+    void occ_pos(int x, int y, int orb);    //serve ad occupare una posizione nella mappa     
+    void free_pos(int x, int y, int orb);   //serve a liberare una posizione nella mappa
+
 
     public:
-    costellazione(int x, int y);        //costruttore:
+    costellazione(int x, int y);        //costruttore
+    costellazione();                    //costruttore di default
     int get_idc();                      //ritorna idc
     void print_sat();                   //stampa posizioni 4 satelliti
-    bool pos_available(int x, int y, int orb);  
+    bool pos_available(int x, int y, int orb);  //ritorna il valore della mappa per una data posizione
     bool check(int orb);
     void lancio();
     void posizionamento();
     void erase();
-    void move_n_flag(int orb);
+    
 };
 
 #endif

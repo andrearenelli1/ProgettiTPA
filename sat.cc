@@ -4,6 +4,7 @@
 using namespace std;
 
 int satellite::numSatelliti = 0;
+int satellite::NSatAllineati = 0;
 
 int satellite::get_idc()
 {
@@ -39,4 +40,9 @@ satellite::satellite(int x, int y, int ids, int idc):posizione(x, y)
 int satellite::numSat()
 {
     return numSatelliti;
+}
+
+int satellite::numSatAllineati()
+{
+    return NSatAllineati;
 }

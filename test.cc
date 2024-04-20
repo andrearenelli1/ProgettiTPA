@@ -11,46 +11,56 @@ void test1()
     cos.posizionamento();
     cos.get_idc();
     cos.print_sat();
+    cout << endl;
 }
 
 void test2()
 {
     costellazione cos[3] = {costellazione(40,50),costellazione(10,-50),costellazione(80,-120)};
-
     for(int i = 0; i < 3; i++)
     {
         cos[i].lancio();
         cos[i].posizionamento();
         cos[i].get_idc();
         cos[i].print_sat();
+        cout << endl;
     }
 }
 
 void test3()
 {    
     satellite sat;
-    cout << "Numero satelliti lanciati: " << "\033[32m" << sat.numSat() << "\033[0m" << endl;
+    cout << "Numero satelliti lanciati: " << "\033[32m" << sat.get_launchSat() << "\033[0m" << endl << endl;
 }
 
-void test4()
+void test4()                        // test 4, 5, 6. Scritti in un unico test perché da soli non avevano senso
 {
-    costellazione cos1(30,60);
-    cos1.lancio();
-
+    costellazione cos[2] = {costellazione(30,60),costellazione(30,60)};
+    cos[0].lancio();
     cout << endl;
     
-    costellazione cos2(30,60);
-    cos2.lancio();
-
+    cos[1].lancio();
     cout << endl;
 
-    cos1.posizionamento();
-    cos1.print_sat();
+    cos[0].posizionamento();
+    cos[0].print_sat();
+    cout << endl;
+}
+
+void test7()                        // test 7,8,9,10,11. Scritti in un unico test perché erano uguali
+{
+    for(int i = 0; i < 5; i++)
+    {
+        costellazione cos(30,60);
+        cos.lancio();
+        cos.posizionamento();
+        cout << endl;
+    }
 }
 
 void test12()
 {
     test3();
     satellite sat;
-    cout << "Numero satelliti allineati: " << "\033[32m" << sat.numSatAllineati() << "\033[0m" << endl;
+    cout << "Numero satelliti allineati: " << "\033[32m" << sat.get_alignedSat() << "\033[0m" << endl<< endl;
 }

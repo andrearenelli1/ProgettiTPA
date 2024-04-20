@@ -4,51 +4,42 @@
 class posizione
 {
     protected:
-    int x;
-    int y;
-    int orbita;
+    int x;                                      // coordinata x
+    int y;                                      // coordinata y
+    int orbita;                                 //variabile orbita
+    void set_orbita(int orbita);                //set variabile orbita, non accessibile dall'utente
 
     public:
-    int get_x(); // ritorna x
-    int get_y(); // ritorna y
-    int get_orbita(); // ritorna orbita
-    bool set_x(int x); //set variabile x
-    bool set_y(int y); //set variabile y
-    void set_orbita(int orbita); //set variabile orbita
+    int get_x();                                // ritorna coordinata x
+    int get_y();                                // ritorna coordinata y
+    int get_orbita();                           // ritorna variabile orbita
+    bool set_x(int x);                          //set coordinata x
+    bool set_y(int y);                          //set coordinata y
 
-    posizione(int x, int y, int orbita = -1); // costruttore
-
-    //bool conferma(int x, int y); l'ho eliminato perche' il codice potrebbe dare problemi utilizza quello che utilizzavi prima
+    posizione(int x, int y, int orbita = -1);   // costruttore con orbita di default -1 (sulla terra)
 };
 
 class satellite: public posizione
 {
     private:
-    int idc; // identificativo costellazione
-    int ids; // identificativo satellite
-    bool aligned; // variabile allineamento = 0 se allineato
-    bool principale; // variabile satellite principale = 1; per verifica -> get_principale
-    static int numSatelliti; // numero satelliti
-    static int NSatAllineati; // numero satelliti
+    int idc;                                    // identificativo costellazione
+    int ids;                                    // identificativo satellite
+    bool aligned;                               // booleano allineamento
+    bool principal;                             // booleano, true se satellite principale
+    static int NLaunchSat;                      // attrito statico numero satelliti lanciati
+    static int NAlignedSat;                     // attributo statico numero satelliti allineati
 
     public:
-    satellite() : posizione(0, 0, -1), ids(0) {}; // costruttore di default che serve in costellazione
+    satellite() : posizione(0, 0, -1), ids(0) {}; // costruttore di default
+    satellite(int x, int y, int ids, int idc);  // costruttore
+    int get_ids();                              // ritorna identificativo satellite
+    int get_idc();                              // ritorna identificativo costellazione
+    bool get_principal();                       // ritorna se è il satellite principale
+    bool get_aligned();                         // ritorna se il satellite è allineato
+    int get_launchSat();                        // ritorna il numero di satelliti lanciati
+    int get_alignedSat();                       // ritorna il numero di satelliti allineati
 
-    satellite(int x, int y, int ids, int idc); // costruttore
-
-    int get_ids(); // ritorna identificativo satellite
-
-    int get_idc(); // ritorna identificativo costellazione
-    
-    bool get_principale(); // ritorna se è il satellite principale
-
-    bool allineato(); // ritorna se è allineato
-
-    int numSat(); // ritorna il numero di satelliti lanciati
-
-    int numSatAllineati(); // ritorna il numero di satelliti allineati
-
-    friend class costellazione;
+    friend class costellazione;                 // dichiaro costellazione e satellite friend per lasciare a costellazione l'accesso ai miei attributi privati
 };
 
 class costellazione

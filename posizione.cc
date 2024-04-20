@@ -20,7 +20,7 @@ int posizione::get_orbita()
 
 bool posizione::set_x(int x)
 {
-    //controllo se x è valido:
+    // controllo validità coordinata x:
     if(-90 <= x && x <= 90)
     {
         this->x = x;
@@ -34,7 +34,7 @@ bool posizione::set_x(int x)
 
 bool posizione::set_y(int y)
 {
-    //controllo se y è valido:
+    // controllo validità coordinata y:
     if(-180 <= y && y <= 180)
     {
         this->y = y;

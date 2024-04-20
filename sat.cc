@@ -3,8 +3,8 @@
 
 using namespace std;
 
-int satellite::numSatelliti = 0;
-int satellite::NSatAllineati = 0;
+int satellite::NLaunchSat = 0;              // inizializzazione attributo statico
+int satellite::NAlignedSat = 0;             // inizializzazione attributo statico
 
 int satellite::get_idc()
 {
@@ -16,7 +16,7 @@ int satellite::get_ids()
     return ids;
 }
 
-bool satellite::get_principale()
+bool satellite::get_principal()
 {
     if(ids == 0)
     {
@@ -26,7 +26,7 @@ bool satellite::get_principale()
     }
 }
 
-bool satellite::allineato()
+bool satellite::get_aligned()
 {
     return aligned;
 }
@@ -37,12 +37,12 @@ satellite::satellite(int x, int y, int ids, int idc):posizione(x, y)
     this->idc = idc;
 }
 
-int satellite::numSat()
+int satellite::get_launchSat()
 {
-    return numSatelliti;
+    return NLaunchSat;
 }
 
-int satellite::numSatAllineati()
+int satellite::get_alignedSat()
 {
-    return NSatAllineati;
+    return NAlignedSat;
 }

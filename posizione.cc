@@ -3,11 +3,6 @@
 
 using namespace std;
 
-void posizione::print_pos()
-{
-    cout << "(" << get_x() << "," << get_y() << "," << get_orbita() << ")" << endl;
-}
-
 int posizione::get_x()
 {
     return x;

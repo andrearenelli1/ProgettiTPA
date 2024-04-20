@@ -29,7 +29,7 @@ void test2()
 void test3()
 {    
     satellite sat;
-    cout << "Numero satelliti lanciati: " << sat.numSat() << endl;
+    cout << "Numero satelliti lanciati: " << "\033[32m" << sat.numSat() << "\033[0m" << endl;
 }
 
 void test4()
@@ -37,8 +37,12 @@ void test4()
     costellazione cos1(30,60);
     cos1.lancio();
 
+    cout << endl;
+    
     costellazione cos2(30,60);
     cos2.lancio();
+
+    cout << endl;
 
     cos1.posizionamento();
     cos1.print_sat();
@@ -48,5 +52,5 @@ void test12()
 {
     test3();
     satellite sat;
-    cout << "Numero satelliti allineati: " << sat.numSatAllineati() << endl;
+    cout << "Numero satelliti allineati: " << "\033[32m" << sat.numSatAllineati() << "\033[0m" << endl;
 }

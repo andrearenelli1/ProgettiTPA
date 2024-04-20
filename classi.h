@@ -16,8 +16,6 @@ class posizione
     bool set_y(int y); //set variabile y
     void set_orbita(int orbita); //set variabile orbita
 
-    void print_pos(); // stampa coordinate elegante
-
     posizione(int x, int y, int orbita = -1); // costruttore
 
     //bool conferma(int x, int y); l'ho eliminato perche' il codice potrebbe dare problemi utilizza quello che utilizzavi prima
@@ -77,6 +75,7 @@ class costellazione
     void lancio();
     void posizionamento();
     void erase();
+    int get_nactive();
     
 };
 

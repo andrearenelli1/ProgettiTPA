@@ -62,5 +62,5 @@ void test12()
 {
     test3();
     satellite sat;
-    cout << "Numero satelliti allineati: " << "\033[32m" << sat.get_alignedSat() << "\033[0m" << endl<< endl;
+    cout << "Numero satelliti allineati: " << "\033[32m" << sat.get_positionedSat() << "\033[0m" << endl<< endl;
 }

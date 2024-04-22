@@ -1,6 +1,11 @@
 #ifndef CLASSI
 #define CLASSI
 
+//NOTA: le orbite sono codificate in questo modo, 0=30k, 1=35k, 2=36k, 3=37k
+//NOTA2: ci siamo accordati su questi significati, con "lancio" ci riferiamo al portare
+//       una costellazione in orbita di sicurezza, con "allineamento" ci riferiamo al mettere i satelliti della 
+//       stessa costellazione nello stesso piano longitudinale.
+
 class posizione
 {
     protected:
@@ -24,20 +29,22 @@ class satellite: public posizione
     private:
     int idc;                                    // identificativo costellazione
     int ids;                                    // identificativo satellite
-    bool aligned;                               // booleano allineamento
-    bool principal;                             // booleano, true se satellite principale
+    bool aligned;                               // booleano allineamento (stesso piano longitudinale degli altri satelliti della stessa costellazione)
+    bool launched;                              // booleano lancio  
+    bool positioned;                            // booleano posizionamento
+    bool active = 1;                            // booleano che indica se il satellite è attivo, viene messo a zero solo dalla funzione erase()
     static int NLaunchSat;                      // attrito statico numero satelliti lanciati
-    static int NAlignedSat;                     // attributo statico numero satelliti allineati
+    static int NPositionedSat;                  // attributo statico numero satelliti posizionati
 
     public:
     satellite() : posizione(0, 0, -1), ids(0) {}; // costruttore di default
-    satellite(int x, int y, int ids, int idc);  // costruttore
+    satellite(int x, int y);                    // costruttore
     int get_ids();                              // ritorna identificativo satellite
     int get_idc();                              // ritorna identificativo costellazione
     bool get_principal();                       // ritorna se è il satellite principale
     bool get_aligned();                         // ritorna se il satellite è allineato
     int get_launchSat();                        // ritorna il numero di satelliti lanciati
-    int get_alignedSat();                       // ritorna il numero di satelliti allineati
+    int get_positionedSat();                    // ritorna il numero di satelliti posizionati in orbite 
 
     friend class costellazione;                 // dichiaro costellazione e satellite friend per lasciare a costellazione l'accesso ai miei attributi privati
 };
@@ -51,7 +58,7 @@ class costellazione
     int idc;                                    //identificatore costellazione (univoco)
     satellite sat[4];                           //array contenente i 4 satelliti della costellazione     
     void allineamento(int x, int y);            //allinea i 4 satelliti sugli stessi piani longitudinali e latitudinali con le formule date dal testo del problema, inoltre comunica al satellite di essere posizionate correttamente settando aligned = 1.
-    void move_n_flag(int orb);                  //serve a spostare i satelliti aggiornando la mappa
+    void move_n_flag(int orb, int increment = 0);   //serve a spostare i satelliti aggiornando la mappa
     void occ_pos(int x, int y, int orb);        //serve ad occupare una posizione nella mappa     
     void free_pos(int x, int y, int orb);       //serve a liberare una posizione nella mappa
 

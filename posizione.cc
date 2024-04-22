@@ -1,7 +1,8 @@
 #include <iostream>
 #include "classi.h"
-
 using namespace std;
+
+//Tutto il file Andrea Corradini
 
 int posizione::get_x()
 {

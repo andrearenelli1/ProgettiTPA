@@ -3,8 +3,10 @@
 #include "classi.h"
 using namespace std;
 
+//Tutto il file Andrea Renelli
+
 int costellazione::ncos = 0;
-int costellazione::nactive = 0;
+int costellazione::nCostPositioned = 0;
 bool costellazione::map[181][361][4] = {};
 
 costellazione::costellazione(int x, int y){
@@ -73,7 +75,7 @@ bool costellazione::check(int orb){
 }
 
 void costellazione::lancio(){
-    if(!pos_available(sat[0].get_x(), sat[0].get_y(), 0) && !sat[0].launched){
+    if(!pos_available(sat[0].get_x(), sat[0].get_y(), 0) && !sat[0].launched && sat[0].get_x() > 0){
         for(int i=0; i < 4; i++){
             sat[i].set_orbita(0);
             occ_pos(sat[i].get_x(), sat[i].get_y(), 0);
@@ -81,14 +83,17 @@ void costellazione::lancio(){
             sat[i].launched = true;
         }
         cout << "----Lancio in orbita di sicurezza effettuato con successo per la costellazione id: " << idc << "----" << endl;
-        nactive++; 
+        nCostPositioned++; 
     }
     else{
         if(pos_available(sat[0].get_x(), sat[0].get_y(), 0)){
             cerr << "\033[31m" << "----Lancio fallito per costellazione id: " << idc <<", posizione non disponibile in orbita di sicurezza----" <<"\033[0m"<< endl;
         }
         if(sat[0].launched){
-            cerr << "\033[31m" << "----Lancio fallito per costellazione id: " << idc <<", la costellazione è già stata lanciata----" <<"\033[0m"<< endl;
+            cerr << "\033[31m" << "----Lancio fallito per costellazione id: " << idc <<", la costellazione e' già stata lanciata----" <<"\033[0m"<< endl;
+        }
+        if(sat[0].get_x() <= 0){
+            cerr << "\033[31m" << "----Lancio fallito per costellazione id: " << idc <<", il lancio puo' avvenire solo per X>0----" <<"\033[0m"<< endl;
         }
     } 
 }
@@ -192,7 +197,7 @@ void costellazione::erase(){
             sat[i].NLaunchSat--;
             sat[i].active = false;
         }
-        nactive--;
+        nCostPositioned--;
         cout << "----Costellazione id. " << idc << " posizionata in orbita non stazionaria 40k e "<< "\033[31m" << "disattivata" <<"\033[0m"<< endl;
     }
     else{
@@ -211,6 +216,6 @@ void costellazione::move_n_flag(int orb, int increment){
         }
 }
 
-int costellazione::get_nactive(){
-    return nactive;
+int costellazione::get_nCostPositioned(){
+    return nCostPositioned;
 }

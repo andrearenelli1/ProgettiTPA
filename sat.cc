@@ -1,6 +1,8 @@
 #include <iostream>
 #include "classi.h"
 
+//Tutto il file Andrea Corradini
+
 using namespace std;
 
 int satellite::NLaunchSat = 0;              // inizializzazione attributo statico

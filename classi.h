@@ -6,6 +6,7 @@
 //       una costellazione in orbita di sicurezza, con "allineamento" ci riferiamo al mettere i satelliti della 
 //       stessa costellazione nello stesso piano longitudinale.
 
+//Andrea Corradini
 class posizione
 {
     protected:
@@ -24,14 +25,15 @@ class posizione
     posizione(int x, int y, int orbita = -1);   // costruttore con orbita di default -1 (sulla terra)
 };
 
+//Andrea Corradini
 class satellite: public posizione
 {
     private:
     int idc;                                    // identificativo costellazione
     int ids;                                    // identificativo satellite
-    bool aligned;                               // booleano allineamento (stesso piano longitudinale degli altri satelliti della stessa costellazione)
-    bool launched;                              // booleano lancio  
-    bool positioned;                            // booleano posizionamento
+    bool aligned = 0;                           // booleano allineamento (stesso piano longitudinale degli altri satelliti della stessa costellazione)
+    bool launched = 0;                          // booleano lancio  
+    bool positioned = 0;                        // booleano posizionamento
     bool active = 1;                            // booleano che indica se il satellite è attivo, viene messo a zero solo dalla funzione erase()
     static int NLaunchSat;                      // attrito statico numero satelliti lanciati
     static int NPositionedSat;                  // attributo statico numero satelliti posizionati
@@ -50,11 +52,12 @@ class satellite: public posizione
     friend class costellazione;                 // dichiaro costellazione e satellite friend per lasciare a costellazione l'accesso ai miei attributi privati
 };
 
+//Andrea Renelli
 class costellazione
 {
     private:
     static int ncos;                            //attributo statico della classe costellazione, viene incrementata dal costruttore, equivale quindi al numero totale di costellazioni create, solo progressivo
-    static int nactive;                         //numero di costellazioni attive (lanciate in orbite geostazionarie)
+    static int nCostPositioned;                 //numero di costellazioni posizionate (lanciate in orbite geostazionarie)
     static bool map[181][361][4];               //matrice tridimensionale di bool avente come base tutte le posizioni possibili sul piano considerando solo coordinate intere (181x361), moltiplicate per 4 orbite. La posizione è rappresentata come un bool, 1=occupata, 0=libera. Le orbite sono codificate così 0=30k, 1=35k, 2=36k, 3=37k.
     int idc;                                    //identificatore costellazione (univoco)
     satellite sat[4];                           //array contenente i 4 satelliti della costellazione     
@@ -74,7 +77,7 @@ class costellazione
     void lancio();                              //controlla la disponibilità in orbita 0 per le posizioni di sat[4], in caso positivo cambia l'orbita a 0, altrimenti fallisce con un messaggio di errore.
     void posizionamento();                      //controlla la disponibilità nelle orbite per il posizionamento e nel caso agisce come descritto dal testo del problema, comunicando a terminale l'esito ed eventuali errori di posizionamento
     void erase();                               //porta l'orbita a 4, nel caso i satelliti fossero posizionati in orbita, ne aggiorna il numero
-    int get_nactive();                          //ritorna il numero di costellazioni attive
+    int get_nCostPositioned();                          //ritorna il numero di costellazioni attive
     
 };
 

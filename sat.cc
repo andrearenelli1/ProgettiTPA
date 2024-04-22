@@ -43,3 +43,7 @@ int satellite::get_positionedSat()
 {
     return NPositionedSat;
 }
+
+void satellite::print_pos(){
+    cout << "sat nr."<< ids << "\t" << "x: " << get_x() << "\t" << "y: " << get_y()  << "\t" << "orb: " << get_orbita() << endl;
+}

@@ -38,9 +38,8 @@ int costellazione::get_idc(){
 //stampa le posizioni dei 4 satelliti della costellazione
 void costellazione::print_sat(){
     cout << "Posizioni satelliti costellazione id: " << idc << endl;
-    cout << "sat nr." << "\t" << "x" << "\t" << "y" << "\t" << "orbita" << endl;
     for(int i = 0; i < 4; i++){
-        cout << sat[i].ids << "\t" << sat[i].get_x() << "\t" << sat[i].get_y()  << "\t" << sat[i].get_orbita() << endl;
+        sat[i].print_pos();
     }
 }
 

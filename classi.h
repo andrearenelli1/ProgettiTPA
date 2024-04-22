@@ -45,6 +45,7 @@ class satellite: public posizione
     bool get_aligned();                         // ritorna se il satellite è allineato
     int get_launchSat();                        // ritorna il numero di satelliti lanciati
     int get_positionedSat();                    // ritorna il numero di satelliti posizionati in orbite 
+    void print_pos();
 
     friend class costellazione;                 // dichiaro costellazione e satellite friend per lasciare a costellazione l'accesso ai miei attributi privati
 };

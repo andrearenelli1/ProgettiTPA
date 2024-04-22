@@ -60,7 +60,7 @@ void test7()                        // test 7,8,9,10,11. Scritti in un unico tes
 
 void test12()
 {
-    test3();
     satellite sat;
+    cout << "Numero satelliti lanciati: " << "\033[32m" << sat.get_launchSat() << "\033[0m" << endl << endl;
     cout << "Numero satelliti allineati: " << "\033[32m" << sat.get_alignedSat() << "\033[0m" << endl<< endl;
 }

@@ -40,11 +40,7 @@ class satellite: public posizione
 
     public:
     satellite() : posizione(0, 0, -1), ids(0) {}; // costruttore di default
-<<<<<<< HEAD
-    satellite(int x, int y);  // costruttore
-=======
     satellite(int x, int y);                    // costruttore
->>>>>>> 116dc9d6f6c41058a42eea8fb8f7507c8e7805e6
     int get_ids();                              // ritorna identificativo satellite
     int get_idc();                              // ritorna identificativo costellazione
     bool get_principal();                       // ritorna se è il satellite principale
@@ -65,7 +61,7 @@ class costellazione
     static bool map[181][361][4];               //matrice tridimensionale di bool avente come base tutte le posizioni possibili sul piano considerando solo coordinate intere (181x361), moltiplicate per 4 orbite. La posizione è rappresentata come un bool, 1=occupata, 0=libera. Le orbite sono codificate così 0=30k, 1=35k, 2=36k, 3=37k.
     int idc;                                    //identificatore costellazione (univoco)
     satellite sat[4];                           //array contenente i 4 satelliti della costellazione     
-    void allineamento(int x, int y);            //allinea i 4 satelliti sugli stessi piani longitudinali e latitudinali con le formule date dal testo del problema, inoltre comunica al satellite di essere posizionate correttamente settando aligned = 1.
+    void allineamento(int x, int y);            //allinea i 4 satelliti sugli stessi piani longitudinali e latitudinali con le formule date dal testo del problema, inoltre lo comunica al satellite settando aligned = 1.
     void move_n_flag(int orb, int increment = 0);   //serve a spostare i satelliti aggiornando la mappa
     void occ_pos(int x, int y, int orb);        //serve ad occupare una posizione nella mappa     
     void free_pos(int x, int y, int orb);       //serve a liberare una posizione nella mappa

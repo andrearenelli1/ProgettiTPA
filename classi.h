@@ -4,7 +4,8 @@
 //NOTA: le orbite sono codificate in questo modo, 0=30k, 1=35k, 2=36k, 3=37k
 //NOTA2: ci siamo accordati su questi significati, con "lancio" ci riferiamo al portare
 //       una costellazione in orbita di sicurezza, con "allineamento" ci riferiamo al mettere i satelliti della 
-//       stessa costellazione nello stesso piano longitudinale.
+//       stessa costellazione nello stesso piano longitudinale, con "posizionamento" invece intendiamo portare 
+//       in orbita 35/36/37k la costellazione.
 
 //Andrea Corradini
 class posizione

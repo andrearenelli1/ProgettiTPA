@@ -33,13 +33,17 @@ void test3()
     cout << "Numero satelliti lanciati: " << "\033[32m" << sat.get_launchSat() << "\033[0m" << endl << endl;
 }
 
-void test4()                        // test 4, 5, 6. Scritti in un unico test perché da soli non avevano senso
+void test4()                        // test 4, 5, 6. Scritti in un unico test
 {
     costellazione cos[2] = {costellazione(30,60),costellazione(30,60)};
     cos[0].lancio();
     cout << endl;
+    cos[0].print_sat();
+    cout << endl;
     
     cos[1].lancio();
+    cout << endl;
+    cos[1].print_sat();
     cout << endl;
 
     cos[0].posizionamento();
@@ -55,6 +59,8 @@ void test7()                        // test 7,8,9,10,11. Scritti in un unico tes
         cos.lancio();
         cos.posizionamento();
         cout << endl;
+        cos.print_sat();
+        cout << endl;
     }
 }
 
@@ -62,5 +68,5 @@ void test12()
 {
     satellite sat;
     cout << "Numero satelliti lanciati: " << "\033[32m" << sat.get_launchSat() << "\033[0m" << endl << endl;
-    cout << "Numero satelliti allineati: " << "\033[32m" << sat.get_alignedSat() << "\033[0m" << endl<< endl;
+    cout << "Numero satelliti allineati: " << "\033[32m" << sat.get_positionedSat() << "\033[0m" << endl<< endl;
 }

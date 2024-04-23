@@ -31,7 +31,7 @@ class satellite: public posizione
 
     public:
     satellite() : posizione(0, 0, -1), ids(0) {}; // costruttore di default
-    satellite(int x, int y, int ids, int idc);  // costruttore
+    satellite(int x, int y);  // costruttore
     int get_ids();                              // ritorna identificativo satellite
     int get_idc();                              // ritorna identificativo costellazione
     bool get_principal();                       // ritorna se è il satellite principale

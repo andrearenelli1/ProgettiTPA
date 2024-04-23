@@ -73,11 +73,11 @@ class costellazione
     int get_idc();                              //ritorna identificatore costellazione
     void print_sat();                           //stampa posizioni 4 satelliti
     bool pos_available(int x, int y, int orb);  //ritorna il valore della mappa per una data posizione, quindi 0 = libera, 1 = occupata.
-    bool check(int orb);                        //controlla per una data orbita se le coordinate di ogni satellite di sat[4] sono disponibili, ritorna 1 solo se sono disponibili tutte e quattro.
+    bool check(int orb, int increment = 0);     //controlla per una data orbita se le coordinate di ogni satellite di sat[4] sono disponibili, ritorna 1 solo se sono disponibili tutte e quattro.
     void lancio();                              //controlla la disponibilità in orbita 0 per le posizioni di sat[4], in caso positivo cambia l'orbita a 0, altrimenti fallisce con un messaggio di errore.
     void posizionamento();                      //controlla la disponibilità nelle orbite per il posizionamento e nel caso agisce come descritto dal testo del problema, comunicando a terminale l'esito ed eventuali errori di posizionamento
     void erase();                               //porta l'orbita a 4, nel caso i satelliti fossero posizionati in orbita, ne aggiorna il numero
-    int get_nCostPositioned();                          //ritorna il numero di costellazioni attive
+    int get_nCostPositioned();                  //ritorna il numero di costellazioni attive
     
 };
 

@@ -66,10 +66,10 @@ void costellazione::free_pos(int x, int y, int orb){
     map[x+90][y+180][orb] = false;
 }
 
-bool costellazione::check(int orb){
+bool costellazione::check(int orb, int increment){
     bool res = false;
     for(int i = 0; i < 4; i++){
-        res = res || pos_available(sat[i].get_x(), sat[i].get_y(), orb);
+        res = res || pos_available(sat[i].get_x()+increment, sat[i].get_y(), orb);
     }
     return !res;
 }
@@ -138,42 +138,27 @@ void costellazione::posizionamento(){
             cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k----" << endl;
         }
         //se fallisce sopra fa per tre volte X+1, ogni volta controlla disponibilità
-        else {
-            bool last_check = false;
-            for(int i = 0; i < 4; i++){
-                last_check = last_check || pos_available(sat[i].get_x()+1, sat[i].get_y(), 3);
-            }
-            if(!last_check){
-                move_n_flag(3,1);
-                cerr << "\033[31m" << "----Posizioni non disponibili in orbite 35k, 36k, 37k----" <<"\033[0m"<< endl;
-                cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k, " << "\033[32m" << "con X incrementata di 1" << "\033[0m" << "----" << endl;
-            }
-            else{
-                last_check = false;
-                for(int i = 0; i < 4; i++){
-                    last_check = last_check || pos_available(sat[i].get_x()+2, sat[i].get_y(), 3);
-                }
-                if(!last_check){
-                    move_n_flag(3,2);
-                    cerr << "\033[31m" << "----Posizioni non disponibili in orbite 35k, 36k, 37k----" <<"\033[0m"<< endl;
-                    cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k, "<< "\033[32m" << "con X incrementata di 2" << "\033[0m" << "----" << endl;
-                }
-                else{
-                    last_check = false;
-                    for(int i = 0; i < 4; i++){
-                        last_check = last_check || pos_available(sat[i].get_x()+3, sat[i].get_y(), 3);
-                    }
-                    if(!last_check){
-                        move_n_flag(3,3);
-                        cerr << "\033[31m" << "----Posizioni non disponibili in orbite 35k, 36k, 37k----" <<"\033[0m"<< endl;
-                        cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k, "<< "\033[32m" << "con X incrementata di 3" << "\033[0m" << "----" << endl;
-                    }
-                    else{
-                        cout << "----tutti i tentativi di posizionamento sono falliti----" << endl;
-                        erase();
-                    }
-                }
-            }
+        else
+        if(check(3,1)){
+            move_n_flag(3,1);
+            cerr << "\033[31m" << "----Posizioni non disponibili in orbite 35k, 36k, 37k----" <<"\033[0m"<< endl;
+            cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k, " << "\033[32m" << "con X incrementata di 1" << "\033[0m" << "----" << endl;
+        }
+        else
+        if(check(3,2)){
+            move_n_flag(3,2);
+            cerr << "\033[31m" << "----Posizioni non disponibili in orbite 35k, 36k, 37k----" <<"\033[0m"<< endl;
+            cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k, "<< "\033[32m" << "con X incrementata di 2" << "\033[0m" << "----" << endl;
+        }
+        else
+        if(check(3,3)){
+            move_n_flag(3,3);
+            cerr << "\033[31m" << "----Posizioni non disponibili in orbite 35k, 36k, 37k----" <<"\033[0m"<< endl;
+            cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 37k, "<< "\033[32m" << "con X incrementata di 3" << "\033[0m" << "----" << endl;
+        }
+        else{
+            cout << "----tutti i tentativi di posizionamento sono falliti----" << endl;
+            erase();
         }
     }
     else{

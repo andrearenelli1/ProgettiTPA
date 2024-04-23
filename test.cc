@@ -1,3 +1,4 @@
+// CORRADINI ANDREA
 #include <iostream>
 #include "test.h"
 #include "classi.h"
@@ -36,15 +37,14 @@ void test3()
 void test4()                        // test 4, 5, 6. Scritti in un unico test
 {
     costellazione cos[2] = {costellazione(30,60),costellazione(30,60)};
-    cos[0].lancio();
-    cout << endl;
-    cos[0].print_sat();
-    cout << endl;
-    
-    cos[1].lancio();
-    cout << endl;
-    cos[1].print_sat();
-    cout << endl;
+
+    for(int i = 0; i < 2; i++)
+    {
+        cos[i].lancio();
+        cout << endl;
+        cos[i].print_sat();
+        cout << endl;
+    }
 
     cos[0].posizionamento();
     cos[0].print_sat();

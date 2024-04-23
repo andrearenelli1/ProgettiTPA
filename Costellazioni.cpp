@@ -118,7 +118,7 @@ void costellazione::allineamento(int x, int y){
 void costellazione::posizionamento(){
     if(!sat[0].positioned && sat[0].launched){
         allineamento(sat[0].get_x(), sat[0].get_y());
-        //controlla orbita 35k
+        //controlla orbita 35k, se vero setta orbita del satellite e flagga posizione come occupata
         if(check(1)){
             move_n_flag(1);
             cout << "----Costellazione id: " << idc << " correttamente posizionata in orbita 35k----" << endl;
